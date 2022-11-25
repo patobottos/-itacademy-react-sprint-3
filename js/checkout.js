@@ -74,9 +74,11 @@ function validate() {
     error++;
   }
 
-  if (error > 0) {
+/*  if (error > 0) {
     alert("1 or more errors detected! Please, verify fields.");
   } else {
     alert("Everything's OK!");
   }
+*/
 }
+

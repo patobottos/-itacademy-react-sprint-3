@@ -1,13 +1,14 @@
 // Array with products (objects) added directly with push(). Products in this array are repeated.
-var cartList = [];
+const cartList = [];
 
 // Array with products and Quantity property
-var cartListWithQuantity = [];
+let cartListWithQuantity = [];
 
 // Improved version of cartList. Cart is an array of products (objects), but each one has a quantity field to define its quantity, so these products are not repeated.
-var cart = [];
-var total = 0;
-var finalTotal = 0;
+const cart = [];
+let total = 0;
+let finalTotal = 0;
+let counter = 0;
 
 // Exercise 1
 function buy(id) {
@@ -23,8 +24,11 @@ function buy(id) {
 // Exercise 2
 function cleanCart() {
     // Empty the content of the cart
-    cartList = [];
-    cart = [];
+    cartList.length = 0;
+    cart.length = 0;
+    document.getElementById('count_product').innerHTML = 0;
+
+    printCart();
 }
 
 // Exercise 3
@@ -55,7 +59,6 @@ function generateCart() {
             cart[indexExistentItem].quantity ++;
     }
   }
-  console.log('carro compra sin repetidos: ',cart);
 }  
 
 // Exercise 5
@@ -66,26 +69,29 @@ function applyPromotionsCart() {
     cart.forEach((x) => {
         x.subtotalWithDiscount = x.price});
            
-    // PROMOTION #1 - oil discount
-    let oilItemIndex = cart.findIndex(item => item.name === 'cooking oil');
+    // PROMOTION #1 - Item 1 discount ('Autumn Bliss' bouquet)
+    let bouquetOneIndex = cart.findIndex(item => item.name === 'Autumn Bliss');
 
-    if (oilItemIndex !== -1 && cart[oilItemIndex].quantity >= 3) {
-        cart[oilItemIndex].subtotalWithDiscount = 10;
+    if (bouquetOneIndex !== -1 && cart[bouquetOneIndex].quantity >= 3) {
+        cart[bouquetOneIndex].subtotalWithDiscount = 60;
     };
 
-    // PROMOTION #2 - bakery discount
-    let bakeryItemIndex = cart.findIndex(item => item.name === 'Instant cupcake mixture');
-    if (bakeryItemIndex !== -1 && cart[bakeryItemIndex].quantity >= 10) {
-        let bakerySpecialPrice = parseFloat(((cart[bakeryItemIndex].price)* 2/3).toFixed(2));
-        cart[bakeryItemIndex].subtotalWithDiscount = bakerySpecialPrice;
+    // PROMOTION #2 - Item 2 discount ('Positive Vibes' bouquet)
+    let bouquetTwoIndex = cart.findIndex(item => item.name === 'Positive Vibes');
+    if (bouquetTwoIndex !== -1 && cart[bouquetTwoIndex].quantity >= 4) {
+        let bouquetTwoSpecialPrice = parseFloat(((cart[bouquetTwoIndex].price)* 2/3).toFixed(2));
+        cart[bouquetTwoIndex].subtotalWithDiscount = bouquetTwoSpecialPrice;
     }
 };
 
 // Exercise 6
 function printCart() {
     // Fill the shopping cart modal manipulating the shopping cart dom
-    var cartListPrint = document.getElementById('cart_list');
+    let cartListPrint = document.getElementById('cart_list');
     let newItem, newItemName, newItemPrice, newItemQty, newItemTotal;
+
+    cartListPrint.innerHTML = "";
+    finalTotal = 0;
 
     for (let i = 0; i < cart.length; i++) {
         newItem = cart[i];
@@ -108,14 +114,13 @@ function printCart() {
 
 
 // ** Nivell II **
-
 // Exercise 8
 function addToCart(id) {
     // Refactor previous code in order to simplify it 
     // 1. Loop for to the array products to get the item to add to cart
     // 2. Add found product to the cart array or update its quantity in case it has been added previously.
 
-    let counter = 0;
+    counter = 0;
 
     // We look for the index of product in the product array
     let selectedProductIndex = products.findIndex(x => x.id === id);
@@ -174,7 +179,7 @@ function removeFromCart(id) {
     applyPromotionsCart();
 }
 
-function open_modal(){
+function open_modal() {
 	console.log("Open Modal");
 	printCart();
 }

@@ -1,0 +1,11 @@
+.checkout-nav .nav-link {
+    color:whitesmoke;
+}
+
+.shopping-cart .card-img-top {
+    max-width: 25%;
+    border: 1px solid #eee;
+    float: left;
+    margin-right: 1rem;
+    margin-top: 0.4rem;
+}
